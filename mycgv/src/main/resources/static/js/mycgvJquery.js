@@ -3,6 +3,7 @@ $(document).ready(function() {
      * 회원가입 폼 유효성 체크
      */
     $("#btnJoin").click(()=>{
+
         if($("#id").val() == ""){
             alert("아이디를 입력해주세요");
             $("#id").focus();
@@ -60,5 +61,6 @@ $(document).ready(function() {
             //서버전송
             joinForm.submit();
         }
+
     });
 }); //ready Function
