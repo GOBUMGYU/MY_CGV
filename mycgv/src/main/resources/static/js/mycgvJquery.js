@@ -1,5 +1,37 @@
 $(document).ready(function() {
 
+    /**
+     * 아이디 중복 처리
+     */
+    //중복확인 버튼 이벤트 처리 --> AJAX 호출
+    $("#idCheck").click(function(){
+        if($("#id").val() == ""){
+            alert("아이디를 입력해주세요");
+            $("#id").focus();
+            return false;
+        }else{
+            //중복체크 진행 : AJAX 호출 및 결과 출력
+            $.ajax({
+                url:"id_check?id="+$("#id").val(),
+                success:function(result){
+                    if(result == 1){
+                        $("#idCheckMsg").text("사용중인 아이디입니다. 다시 입력해주세요~")
+                            .css("color","red").css("font-size","11px")
+                            .css("margin","5px 0 0 156px");
+                        $("#id").val("").focus();
+                    }else{
+                        $("#idCheckMsg").text("사용 가능한 아이디입니다.")
+                            .css("color","blue").css("font-size","11px")
+                            .css("margin","5px 0 0 156px");
+                        $("#pass").focus();
+                    }
+
+                }//success
+
+            });//ajax
+        }
+    });//ready
+
 
     /**
      * 회원가입 폼 유효성 체크
