@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>CGV</title>
+  <!-- Custom Css -->
   <link rel="stylesheet"  th:href="@{/css/mycgv.css}">
+  <!-- Jqery-3.6.0.min.css -->
   <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+  <!-- Custom Js -->
   <script th:src="@{/js/mycgvJquery.js}"></script>
-
+  <!-- 카카오(다음) 우편 서비스 -->
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 <!-- Header Include -->
@@ -56,7 +60,7 @@
       </li>
       <li>
         <label>주소</label>
-        <input type="text" name="zonecode" id="zonecode" placeholder="우편번호">
+        <input type="text" name="zoneCode" id="zoneCode" placeholder="우편번호">
         <input type="text" name="addr1" id="addr1">
         <button type="button" class="btn_style" id="btnSearchAddr">주소찾기</button>
       </li>
