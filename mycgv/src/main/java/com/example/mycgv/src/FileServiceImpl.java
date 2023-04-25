@@ -1,11 +1,14 @@
 package com.example.mycgv.src;
 
 import com.example.mycgv.src.board.model.PostBoardReq;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.UUID;
 
+@Service
 public class FileServiceImpl {
 
     /**
@@ -57,8 +60,7 @@ public class FileServiceImpl {
     public void fileSave(PostBoardReq postBoardReq, HttpServletRequest request) throws Exception {
         if(!postBoardReq.getFile1().getOriginalFilename().equals("")) {
             String path = request.getSession().getServletContext().getRealPath("/");
-            path += "\\upload\\";
-
+            path += "resources/static/upload/";
             File file = new File(path + postBoardReq.getBsfile());
             postBoardReq.getFile1().transferTo(file);
         }
