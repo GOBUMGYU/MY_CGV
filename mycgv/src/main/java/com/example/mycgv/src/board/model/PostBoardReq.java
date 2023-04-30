@@ -1,13 +1,16 @@
 package com.example.mycgv.src.board.model;
 
 import jdk.jfr.Timestamp;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class PostBoardReq {

@@ -12,17 +12,17 @@
 <header th:fragment="header">
   <div class="header_contents1">
     <div>
-      <a href="http://localhost:9000/mycgv/index.do" target="_parent">
+      <a th:href="@{/index}" target="_parent">
         <img th:src="@{/img/logoRed.png}" width="150" height="70"></a>
       <span>CULTURFLEX</span>
     </div>
     <div>
       <img th:src="@{/img/hcard.png}">
-      <a href="http://localhost:9000/mycgv/login.do" target="_parent" >
+      <a th:href="@{/users/login}" target="_parent" >
         <img th:src="@{/img/loginPassword.png}">
         <span>로그인</span>
       </a>
-      <a href="http://localhost:9000/mycgv/join.do" target="_parent" >
+      <a th:href="@{/users/new}" target="_parent" >
         <img th:src="@{/img/loginJoin.png}">
         <span>회원가입</span>
       </a>
@@ -30,15 +30,15 @@
         <img th:src="@{/img/loginMember.png}">
         <span>MY CGV</span>
       </a>
-      <a href="http://localhost:9000/mycgv/board_list.do" target="_parent" >
+      <a th:href="@{/board}" target="_parent" >
         <img th:src="@{/img/loginCustomer.png}">
         <span>게시판</span>
       </a>
-      <a href="http://localhost:9000/mycgv/notice_list.do" target="_parent" >
+      <a th:href="@{/notice}" target="_parent" >
         <img th:src="@{/img/loginCustomer.png}">
         <span>공지사항</span>
       </a>
-      <a href="http://localhost:9000/mycgv/admin.do" target="_parent" >
+      <a th:href="@{/admin}" target="_parent" >
         <img th:src="@{/img/loginCustomer.png}">
         <span>Admin</span>
       </a>
