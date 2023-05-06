@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -98,6 +99,22 @@ public class BoardController {
         return mv;
     }
 
+    @PostMapping("/delete")
+    public ModelAndView boardDelete(Long bid, HttpServletRequest request) throws Exception{
+        ModelAndView mv = new ModelAndView();
+
+        PostBoardReq postBoardReq = boardService.Content(bid);
+        int result = boardService.delete(bid);
+
+        if(result == 1) {
+            fileService.fileDelete(postBoardReq, request);
+            mv.setViewName("redirect:/board");
+        }else {
+            mv.setViewName("error_page");
+        }
+        return mv;
+    }
+
     @GetMapping("/delete")
     public ModelAndView boardDeleteForm(Long bid) {
         ModelAndView mv = new ModelAndView();
@@ -132,5 +149,6 @@ public class BoardController {
         mv.setViewName("/board/boardUpdate");
         return mv;
     }
+
 
 }
