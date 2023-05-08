@@ -1,6 +1,7 @@
 package com.example.mycgv.src;
 
 import com.example.mycgv.src.board.model.PostBoardReq;
+import com.example.mycgv.src.notice.model.Notice;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,17 @@ public class FileServiceImpl {
         }
     }
 
+    public void fileDelete(Notice notice, HttpServletRequest request) throws Exception {
+        if(notice.getNsfile() != null) {
+            String path = fileDir;
+
+            File old_file = new File(path + File.separator + notice.getNsfile());
+            if(old_file.exists()) {
+                old_file.delete();
+            }
+        }
+    }
+
 
     /**
      * 1. file1 필드에서 원본 파일 이름을 가져옴
@@ -44,9 +56,21 @@ public class FileServiceImpl {
      */
     public void updateFileSave(PostBoardReq postBoardReq, HttpServletRequest request, String old_filename) throws Exception {
         if(!postBoardReq.getFile1().getOriginalFilename().equals("")) {
-            String path = fileDir + postBoardReq.getBsfile();
+            String path = fileDir;
             File file = new File(path + postBoardReq.getBsfile());
             postBoardReq.getFile1().transferTo(file);
+
+            File ofile = new File(path + old_filename);
+            if(ofile.exists()) {
+                ofile.delete();
+            }
+        }
+    }
+    public void updateFileSave(Notice notice, HttpServletRequest request, String old_filename) throws Exception {
+        if(!notice.getFile1().getOriginalFilename().equals("")) {
+            String path = fileDir;
+            File file = new File(fileDir + notice.getNsfile());
+            notice.getFile1().transferTo(file);
 
             File ofile = new File(path + old_filename);
             if(ofile.exists()) {
@@ -72,6 +96,17 @@ public class FileServiceImpl {
         return postBoardReq;
     }
 
+    public Notice updateFileCheck(Notice notice) {
+        if(notice.getFile1().getOriginalFilename().equals("")) {
+            if(!notice.getFile1().getOriginalFilename().equals("")) {
+                UUID uuid = UUID.randomUUID();
+                notice.setNfile(notice.getFile1().getOriginalFilename());
+                notice.setNsfile(uuid + "_" + notice.getFile1().getOriginalFilename());
+            }
+        }
+        return notice;
+    }
+
     /**
      * 1. file1 필드 값 여부 체크
      * 2. 비어있는 경우 bs, b file 필드 빈문자열 설정
@@ -79,7 +114,7 @@ public class FileServiceImpl {
      */
     public PostBoardReq fileCheck(PostBoardReq postBoardReq) {
         if(postBoardReq.getFile1().getOriginalFilename().equals("")) {
-            postBoardReq.setBsfile("");
+            postBoardReq.setBfile("");
             postBoardReq.setBsfile("");
         }else {
             UUID uuid = UUID.randomUUID();
@@ -88,6 +123,18 @@ public class FileServiceImpl {
         }
 
         return postBoardReq;
+    }
+
+    public Notice fileCheck(Notice notice) {
+        if(notice.getFile1().getOriginalFilename().equals("")) {
+            notice.setNfile("");
+            notice.setNsfile("");
+        }else {
+            UUID uuid = UUID.randomUUID();
+            notice.setNfile(notice.getFile1().getOriginalFilename());
+            notice.setNsfile(uuid + "_" + notice.getFile1().getOriginalFilename());
+        }
+        return notice;
     }
 
     /**
@@ -103,6 +150,14 @@ public class FileServiceImpl {
             postBoardReq.getFile1().transferTo(file);
             log.info("file save to: {}", file.getAbsoluteFile()); //로그 출력
         }
+    }
+
+    public void fileSave(Notice notice, HttpServletRequest request) throws Exception {
+         if(!notice.getFile1().getOriginalFilename().equals("")) {
+             String path = fileDir;
+             File file = new File(path + File.separator + notice.getNsfile());
+             notice.getFile1().transferTo(file);
+         }
     }
 
 
