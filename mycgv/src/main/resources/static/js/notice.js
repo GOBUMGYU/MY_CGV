@@ -19,7 +19,7 @@ $(document).ready(function (){
                for(obj of dataset.list) {
                    output += "<tr>"
                    output += "<td>"+obj.nid+"</td>"
-                   output += "<td><a href='#' class='bclass' id='"+obj.nid+"'>"+obj.ntitle+"</a></td>"
+                   output += "<td><a href='notice/content' class='bclass' id='"+obj.nid+"'>"+obj.ntitle+"</a></td>"
                    output += "<td>"+obj.createAt+"</td>"
                    output += "<td>"+obj.nhits+"</td>"
                    output += "</tr>"
@@ -50,27 +50,70 @@ $(document).ready(function (){
                    noticeContent($(this).attr("id"));
                });
 
-               function noticePager(dbCount,pageSize,rpage){
-                   //alert(dbCount+","+pageSize+","+rpage);
-                   var pager = jQuery('#ampaginationsm').pagination({
-
-                       maxSize: 7,	    		// max page size
-                       totals: dbCount,	// total rows
-                       page: 	rpage,		// initial page
-                       pageSize: pageSize,	// max number items per page
-
-                       // custom labels
-                       lastText: '&raquo;&raquo;',
-                       firstText: '&laquo;&laquo;',
-                       prevText: '&laquo;',
-                       nextText: '&raquo;',
-
-                       btnSize:'sm'	// 'sm'  or 'lg'
-                   });
-               }
-
-
            } //success
         }); //ajax
     } //initAjax
+
+    function noticePager(dbCount,pageSize,rpage){
+        //alert(dbCount+","+pageSize+","+rpage);
+        var pager = jQuery('#ampaginationsm').pagination({
+
+            maxSize: 7,	    		// max page size
+            totals: dbCount,	// total rows
+            page: 	rpage,		// initial page
+            pageSize: pageSize,	// max number items per page
+
+            // custom labels
+            lastText: '&raquo;&raquo;',
+            firstText: '&laquo;&laquo;',
+            prevText: '&laquo;',
+            nextText: '&raquo;',
+
+            btnSize:'sm'	// 'sm'  or 'lg'
+        });
+    }
+
+    //noticeContent 열기 = 제목 클릭 이벤트 - bclass에 대한 기능 구현
+    function noticeContent(nid) {
+        $.ajax({
+           url:"notice/content?nid="+nid,
+           success:function(result) {
+               let data = JSON.parse(result);
+
+               let output = "<table class='boardContent'>";
+               output += "<tr><th>등록일자</th>";
+               output += "<td>"+ data.ndate +"</td>";
+               output += "<th>조회수</th>";
+               output += "<td>"+ data.nhits +"</td></tr>";
+               output += "<tr>";
+               output += "<th>제목</th>";
+               output += "<td colspan='3'>" + data.ntitle + "</td>";
+               output += "</tr>";
+               output += "<tr>";
+               output += "<th>내용</th>";
+               output += "<td colspan='3'>" + data.ncontent + "<br><br><br></td>";
+               output += "</tr>";
+               output += "<tr>";
+               output += "<td colspan='4'>";
+               output += "<button type='button' class='btn_style' id='backList'>리스트</button>";
+               output += "<button type='button' class='btn_style' id='backHome'>홈으로</button>";
+               output += "</td></tr>";
+               output += "</table>";
+
+               $("table.board").remove();
+               $("h1").after(output);
+
+               $("#backList").click(function(){
+                   $(location).attr("href","/notice");
+                   //location.href = "이동할 주소";
+               });
+
+               //홈으로 버튼에 대한 이벤트
+               $("#backHome").click(function(){
+                   $(location).attr("href","/index");
+               });
+           }
+        });
+    }
+
 });

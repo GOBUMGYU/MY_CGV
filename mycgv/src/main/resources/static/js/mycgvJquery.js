@@ -1,5 +1,39 @@
 $(document).ready(function() {
 
+    $("#btnNoticeWrite").click(()=>{
+
+        if($("#ntitle").val() == ""){
+            alert("제목을 입력해주세요");
+            $("#ntitle").focus();
+            return false;
+        }else{
+            //서버전송
+            boardWriteForm.submit();
+        }
+    });
+
+    $("#btnNoticeUpdate").click(()=>{
+        if($("#ntitle").val() == ""){
+            alert("제목을 입력해주세요");
+            $("#ntitle").focus();
+            return false;
+        }else{
+            //서버전송
+            boardUpdateForm.submit();
+        }
+    });
+
+    $("#btnBoardUpdate").click(()=>{
+        if($("#btitle").val() == ""){
+            alert("제목을 입력해주세요");
+            $("#btitle").focus();
+            return false;
+        }else{
+            //서버전송
+            boardUpdateForm.submit();
+        }
+    });
+
     /**
      * 아이디 중복 처리
      */
@@ -148,4 +182,7 @@ $(document).ready(function() {
             }
         }).open();
     });
+
+
+
 }); //ready Function
