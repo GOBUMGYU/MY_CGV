@@ -19,7 +19,7 @@ $(document).ready(function (){
                for(obj of dataset.list) {
                    output += "<tr>"
                    output += "<td>"+obj.nid+"</td>"
-                   output += "<td><a href='notice/content' class='bclass' id='"+obj.nid+"'>"+obj.ntitle+"</a></td>"
+                   output += "<td><a href='/notice/content' class='bclass' id='"+obj.nid+"'>"+obj.ntitle+"</a></td>"
                    output += "<td>"+obj.createAt+"</td>"
                    output += "<td>"+obj.nhits+"</td>"
                    output += "</tr>"
@@ -44,7 +44,8 @@ $(document).ready(function (){
                });
 
                //제목에 대한 이벤트 처리
-               $(".bclass").click(function(){
+               $(".bclass").click(function(event){
+                   event.preventDefault();
                    //alert("제목클릭;; nid=" + $(this).attr("id"));
                    //함수 호출을 통해 기능 구현
                    noticeContent($(this).attr("id"));
@@ -82,7 +83,7 @@ $(document).ready(function (){
 
                let output = "<table class='boardContent'>";
                output += "<tr><th>등록일자</th>";
-               output += "<td>"+ data.ndate +"</td>";
+               output += "<td>"+ data.createAt +"</td>";
                output += "<th>조회수</th>";
                output += "<td>"+ data.nhits +"</td></tr>";
                output += "<tr>";

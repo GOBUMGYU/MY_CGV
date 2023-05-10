@@ -44,7 +44,8 @@ public class NoticeRepository {
                 "from CGV.NOTICE where nid= ?";
         Object[] noticeContentParams = new Object[] { nid };
 
-        return this.jdbcTemplate.queryForObject(noticeContentQuery, noticeContentParams, new BeanPropertyRowMapper<>(Notice.class));
+        return this.jdbcTemplate.queryForObject(noticeContentQuery, noticeContentParams,
+                new BeanPropertyRowMapper<>(Notice.class));
     }
 
     public int delete(Long nid) {

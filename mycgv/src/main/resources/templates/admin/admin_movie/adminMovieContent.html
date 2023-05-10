@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CGV</title>
+  <link rel="stylesheet"  th:href="@{/css/mycgv.css}">
+</head>
+<body>
+<!-- Header Include -->
+<include th:replace="fragments/header :: header" width="100%" height="160px" scrolling="no" frameborder=0 ></include>
+
+
+<!---------------------------------------------->
+<!--------------- Content ----------------------->
+<!---------------------------------------------->
+<div class="content">
+  <h1>영화 상세 정보</h1>
+  <table class="boardContent">
+    <tr>
+      <th>등록날짜</th>
+      <td th:text="${vo.createAt}">${vo.mdate }</td>
+      <th>장르</th>
+      <td th:text="${vo.mcategory}">${vo.mcategory }</td>
+    </tr>
+    <tr>
+      <th>영화제목</th>
+      <td colspan="3" th:text="${vo.mname}">${vo.mname }</td>
+    </tr>
+    <tr>
+      <th>영화설명</th>
+      <td colspan="3" th:text="${vo.mdesc}">${vo.mdesc }<br><br>
+        <th:block th:if="${vo.msfile1 != null}">
+          <img th:src="@{/resources/upload/{filename}(filename=${vo.msfile1})}" width="50%">
+        </th:block><br><br>
+        <th:block th:if="${vo.msfile2 != null}">
+          <img th:src="@{/resources/upload/{filename}(filename=${vo.msfile2})}" width="50%">
+        </th:block>
+        <br><br></td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <a th:href="'/admin/movie/update?mid='+${vo.mid}"><button type="button" class="btn_style">수정하기</button></a>
+        <a th:href="@{'/admin/movie/delete?mid='+${vo.mid}}"><button type="button" class="btn_style">삭제하기</button></a>
+        <a th:href="@{/admin/movie}">
+          <button type="button" class="btn_style">리스트</button></a>
+        <a th:href="@{/admin}"><button type="button" class="btn_style">관리자홈</button></a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- footer Include -->
+<include th:replace="fragments/footer :: footer" width="100%" height="160px" scrolling="no" frameborder=0 ></include>
+
+</body>
+</html>

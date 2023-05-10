@@ -1,14 +1,18 @@
 package com.example.mycgv.src;
 
 import com.example.mycgv.src.board.model.PostBoardReq;
+import com.example.mycgv.src.movie.Movie;
 import com.example.mycgv.src.notice.model.Notice;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +26,38 @@ public class FileServiceImpl {
     @Value("${spring.file.dir}")
     private String fileDir;
 
+    public void multiFileSave(Movie movie, HttpServletRequest request) throws Exception {
+        for (int i = 0; i < movie.getFiles().length; i++) {
+            MultipartFile file = movie.getFiles()[i];
+
+            if(!file.getOriginalFilename().equals("")) {
+                String path = fileDir;
+                File upload_file = new File(path + File.separator + movie.getMsfiles().get(i));
+                file.transferTo(upload_file);
+            }
+        }
+    }
+
+    public Movie multiFileCheck(Movie movie) {
+        for(MultipartFile file : movie.getFiles()) {
+            if(!file.getOriginalFilename().equals("")) {
+                UUID uuid = UUID.randomUUID();
+
+                movie.getMfiles().add(file.getOriginalFilename());
+                movie.getMsfiles().add(uuid+"_"+file.getOriginalFilename());
+            }else {
+                movie.getMfiles().add("");
+                movie.getMsfiles().add("");
+            }
+        }
+
+        movie.setMfile1(movie.getMfiles().get(0));
+        movie.setMfile2(movie.getMfiles().get(1));
+        movie.setMsfile1(movie.getMsfiles().get(0));
+        movie.setMsfile2(movie.getMsfiles().get(1));
+
+        return movie;
+    }
 
     public void fileDelete(PostBoardReq postBoardReq, HttpServletRequest request) throws Exception {
         if(postBoardReq.getBsfile() != null) {
