@@ -1,5 +1,6 @@
 package com.example.mycgv.utils;
 
+import com.example.mycgv.src.SessionVO;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -16,7 +17,7 @@ public class MyCgvInterceptor extends HandlerInterceptorAdapter {
         HttpSession session = request.getSession();
         SessionVO svo = (SessionVO) session.getAttribute("svo");
         if (svo == null) {
-            response.sendRedirect("http://localhost:9000/users/login?auth=fail");
+            response.sendRedirect("/users/login?auth=fail");
             return false;
         }
 
