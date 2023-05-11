@@ -6,6 +6,8 @@ import com.example.mycgv.src.movie.Movie;
 import com.example.mycgv.src.movie.MovieService;
 import com.example.mycgv.src.notice.NoticeService;
 import com.example.mycgv.src.notice.model.Notice;
+import com.example.mycgv.src.user.UserService;
+import com.example.mycgv.src.user.model.PostUserReq;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,6 +35,7 @@ import java.util.Map;
 public class AdminController {
 
     private final NoticeService noticeService;
+    private final UserService userService;
     private final MovieService movieService;
     private final PageServiceImpl pageService;
     private final FileServiceImpl fileService;
@@ -143,6 +146,35 @@ public class AdminController {
         } else {
             mv.setViewName("error_page");
         }
+        return mv;
+    }
+
+    @GetMapping("/member")
+    public ModelAndView adminMemberListForm(String rpage) {
+        ModelAndView mv = new ModelAndView();
+
+        Map<String, Integer> param = pageService.getPageResult(rpage, "user", userService);
+        List<PostUserReq> list = userService.userList(param.get("startCount"), param.get("endCount"));
+
+        mv.addObject("list", list);
+        mv.addObject("dbCount", param.get("dbCount"));
+        mv.addObject("rpage", param.get("rpage"));
+        mv.addObject("pageSize", param.get("pageSize"));
+        mv.setViewName("/admin/admin_member/adminMemberList");
+
+        return mv;
+    }
+
+    @GetMapping("/member/content")
+    public ModelAndView adminMemberContentForm(Long idx) {
+        ModelAndView mv = new ModelAndView();
+        PostUserReq vo = userService.content(idx);
+        String address = vo.getZonecode()+" "+vo.getAddr1()+" "+ vo.getAddr2();
+
+        mv.addObject("vo", vo);
+        mv.addObject("address", address);
+        mv.setViewName("/admin/admin_member/adminMemberContent");
+
         return mv;
     }
 
