@@ -5,7 +5,7 @@
   <title>CGV</title>
   <link rel="stylesheet"  th:href="@{/css/mycgv.css}">
   <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-  <script th:src="@{/js/mycgvJquery}"></script>
+  <script th:src="@{/js/mycgvJquery.js}"></script>
   <style>
     #upload_file {
       /*border:1px solid red;*/
@@ -39,7 +39,7 @@
 <!---------------------------------------------->
 <div class="content">
   <h1>게시판-수정하기</h1>
-  <form name="boardUpdateForm" action="board_update_check.do" method="post" enctype="multipart/form-data">
+  <form name="boardUpdateForm" th:action="@{/board/update}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="bid"  th:value="${vo.bid}" >
     <input type="hidden" name="bfile"  th:value="${vo.bfile}" >
     <input type="hidden" name="bsfile"  th:value="${vo.bsfile}" >

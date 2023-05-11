@@ -4,6 +4,37 @@
   <meta charset="UTF-8">
   <title>CGV</title>
   <link rel="stylesheet"  th:href="@{/css/mycgv.css}">
+  <link rel="stylesheet"  th:href="@{/css/am-pagination.css}">
+  <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+  <script th:src="@{/js/am-pagination.js}"></script>
+  <script>
+$(document).ready(function(){
+
+  //페이징 리스트 출력
+  var pager = jQuery('#ampaginationsm').pagination({
+
+    maxSize: 7,	    		// max page size
+    totals: '${dbCount}',	// total rows
+    page: '${rpage}',		// initial page
+    pageSize: '${pageSize}',	// max number items per page
+
+    // custom labels
+    lastText: '&raquo;&raquo;',
+    firstText: '&laquo;&laquo;',
+    prevText: '&laquo;',
+    nextText: '&raquo;',
+
+    btnSize:'sm'	// 'sm'  or 'lg'
+  });
+
+  //페이징 번호 클릭 시 이벤트 처리
+  jQuery('#ampaginationsm').on('am.pagination.change',function(e){
+    jQuery('.showlabelsm').text('The selected page no: '+e.page);
+    $(location).attr('href', "/board?rpage="+e.page);
+  });
+
+});
+</script>
 </head>
 <body>
 <!-- Header Include -->
@@ -29,12 +60,16 @@
       <th>조회수</th>
     </tr>
 
-      <tr th:each="vo : ${list}">
-        <td th:text="${vo.rno}">rno</td>
-        <td><a href="board_content.do?bid=${vo.bid}">${vo.btitle}</a></td>
-        <td th:text="${vo.bdate}">bdate</td>
-        <td th:text="${vo.bhits}">bhits</td>
-      </tr>
+    <tr th:each="vo : ${list}">
+      <td th:text="${vo.bid}"></td>
+      <td><a th:href="@{'/board/content?bid='+${vo.bid}}"><span th:text="${vo.btitle}"></span></a></td>
+      <td th:text="${vo.createAt}"></td>
+      <td th:text="${vo.bhits}"></td>
+    </tr>
+    <tr>
+      <td colspan="4"><div id="ampaginationsm"></div></td>
+    </tr>
+
   </table>
 </div>
 
