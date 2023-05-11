@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    /*********************
+     공지사항 등록폼 유효성 체크
+     **********************/
     $("#btnNoticeWrite").click(()=>{
 
         if($("#ntitle").val() == ""){
@@ -12,6 +15,9 @@ $(document).ready(function() {
         }
     });
 
+    /*********************
+     공지사항 수정폼 유효성 체크
+     **********************/
     $("#btnNoticeUpdate").click(()=>{
         if($("#ntitle").val() == ""){
             alert("제목을 입력해주세요");
@@ -23,6 +29,10 @@ $(document).ready(function() {
         }
     });
 
+
+    /*********************
+     게시판 수정폼 유효성 체크
+     **********************/
     $("#btnBoardUpdate").click(()=>{
         if($("#btitle").val() == ""){
             alert("제목을 입력해주세요");
@@ -67,9 +77,9 @@ $(document).ready(function() {
     });//ready
 
 
-    /**
-     * 회원가입 폼 유효성 체크
-     */
+    /*********************
+     회원가입 폼 유효성 체크 --> 서버의 효율성을 높이기위함:부하를 줄임
+     **********************/
     $("#btnJoin").click(()=>{
         if($("#id").val() == ""){
             alert("아이디를 입력해주세요");
@@ -170,9 +180,9 @@ $(document).ready(function() {
     });
 
 
-    /**
-     * 회원가입 - 주소찾기
-     */
+    /*********************
+     회원가입 - 주소찾기
+     **********************/
     $("#btnSearchAddr").click(function(){
         new daum.Postcode({
             oncomplete: function(data) {
@@ -181,6 +191,24 @@ $(document).ready(function() {
                 $("#addr2").focus();
             }
         }).open();
+    });
+
+    /*********************
+     로그인폼 체크 함수
+     **********************/
+    $("#btnLogin").click(()=>{
+        if($("#id").val() == ""){
+            alert("아이디를 입력해주세요");
+            $("#id").focus();
+            return false;
+        }else if($("#pass").val() == ""){
+            alert("패스워드를 입력해주세요");
+            $("#pass").focus();
+            return false;
+        }else{
+            //서버전송
+            loginForm.submit();
+        }
     });
 
 
