@@ -24,7 +24,7 @@ public class NoticeRepository {
 
     public List<Notice> noticeList(int startCount, int endCount) {
         String selectBoardQuery = "SELECT nid, ntitle, nhits, DATE_FORMAT(createAt, '%Y-%m-%d') AS createAt " +
-                "FROM CGV.NOTICE ORDER BY createAt DESC LIMIT ? OFFSET ?";
+                "FROM CGV.NOTICE ORDER BY createAt LIMIT ? OFFSET ?";
         //Object[] selectBoardParams = new Object[] {startCount, endCount};
         Object[] selectBoardParams = new Object[]{endCount - startCount + 1, startCount - 1};
         RowMapper<Notice> rowMapper = new BeanPropertyRowMapper<>(Notice.class);
