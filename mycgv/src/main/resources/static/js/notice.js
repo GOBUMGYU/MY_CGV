@@ -7,7 +7,7 @@ $(document).ready(function (){
         $.ajax({
            url:"notice/list?rpage="+rpage,
            success:function(result){
-               let dataset = JSON.parse(result);
+               let dataset = result;
 
                var output = "<table class='board'>";
                output += "<tr>"
@@ -78,8 +78,10 @@ $(document).ready(function (){
     function noticeContent(nid) {
         $.ajax({
            url:"notice/content?nid="+nid,
+           contentType: "application/json; charset=UTF-8",
+           dataType: "json",
            success:function(result) {
-               let data = JSON.parse(result);
+               let data = result;
 
                let output = "<table class='boardContent'>";
                output += "<tr><th>등록일자</th>";
