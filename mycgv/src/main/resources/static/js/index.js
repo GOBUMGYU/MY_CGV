@@ -6,9 +6,10 @@ $(document).ready(function () {
 
         $.ajax({
             url : "notice/list?rpage="+rpage,
+            dataType: "json",
             success : function(result) {
-                let notice = JSON.parse(result);
-
+                console.log(result);
+                let notice = result;
                 let output = "<div class='notice_style'><h3>공지사항</h3>";
                 output += "<div>&nbsp;&nbsp;<span id='pre'>pre</span>&nbsp;&nbsp;|";
                 output += "&nbsp;&nbsp;<span id='next'>next</span>&nbsp;&nbsp;|";
@@ -31,12 +32,15 @@ $(document).ready(function () {
                 $("div.s2_article > div").after(output);
 
                 //pre, next 버튼 활성화
-                if(rpage >= 1 && rpage < notice.pageCount ){
+                if(rpage > 1 && rpage < notice.pageCount ){
+                    $("#pre").css("visibility","visible").css("color","black");
+                    $("#next").css("visibility","visible").css("color","red");
+                } else if(rpage === 1){
                     $("#pre").css("visibility","hidden");
-                    $("#next").css("color","red");
-                }else{
-                    $("#pre").css("color","red");
-                //    $("#next").css("visibility","hidden");
+                    $("#next").css("visibility","visible").css("color","red");
+                } else {
+                    $("#pre").css("visibility","visible").css("color","red");
+                    $("#next").css("visibility","hidden");
                 }
 
                 //4. Dynamic HTML 코드에서 이벤트 처리 진행
@@ -49,7 +53,7 @@ $(document).ready(function () {
                 });
 
                 $("#more").click(function(){
-                    $(location).attr("href","notice/list");
+                    $(location).attr("href","notice");
                 });
 
             }//success

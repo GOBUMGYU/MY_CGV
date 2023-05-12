@@ -22,27 +22,25 @@
     }
 
     function movieList(){
-      //Ajax를 이용한 데이터 가져오기
-      //alert("성공");
-      $.ajax({
-        url:"/admin/movie/list",
-        success:function(result){
+        $.ajax({
+            url: "/admin/movie/list",
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json",
+            success: function(result) {
+                let movie = result.list;
+                let output ="<div class='s1_article'>";
+                for(data of movie){
+                    output += "<article>";
+                    output += "<img src='/upload/"+data.msfile+"'>";
+                    output += "<div>"+data.mname+"</div>";
+                    output += "<div>99%  | 예매율 37.1%</div>";
+                    output += "</article>";
+                }
+                output += "</div>";
 
-          let movie = JSON.parse(result);
-
-          let output ="<div class='s1_article'>";
-          for(data of movie.list){
-            output += "<article>";
-            output += "<img th:src='/upload/"+data.msfile+"'>";
-            output += "<div>"+data.mname+"</div>";
-            output += "<div>99%  | 예매율 37.1%</div>";
-            output += "</article>";
-          }
-          output += "</div>";
-
-          $(".mchart").after(output);
-        }
-      });
+                $(".mchart").after(output);
+            }
+        });
     }
 </script>
 <style>
@@ -75,16 +73,16 @@
     <!-- The slideshow -->
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img th:src="@{/img/img1.jpg}">
+            <img th:src="@{/img/16780934203280.png}">
         </div>
         <div class="carousel-item">
-            <img th:src="@{/img/img2.jpg}">
+            <img th:src="@{/img/16835257943160.jpg}">
         </div>
         <div class="carousel-item">
-            <img th:src="@{/img/img3.jpg}">
+            <img th:src="@{/img/16836819236280.jpg}">
         </div>
         <div class="carousel-item">
-            <img th:src="@{/img/img4.jpg}">
+            <img th:src="@{/img/16836873592170.jpg}">
         </div>
     </div>
 
@@ -101,33 +99,6 @@
 <div class="content">
   <section>
     <h3 class="mchart">무비차트 | 상영예정작</h3>
-    <!--<div class="s1_article">
-      <article>
-        <img th:src="@{/img/82120_320.jpg}" />
-        <div>탑건-매버릭</div>
-        <div>99%  | 예매율 37.1%</div>
-      </article>
-      <article>
-        <img th:src="@{/img/82120_320.jpg}" />
-        <div>탑건-매버릭</div>
-        <div>99%  | 예매율 37.1%</div>
-      </article>
-      <article>
-        <img th:src="@{/img/82120_320.jpg}" />
-        <div>탑건-매버릭</div>
-        <div>99%  | 예매율 37.1%</div>
-      </article>
-      <article>
-        <img th:src="@{/img/82120_320.jpg}" />
-        <div>탑건-매버릭</div>
-        <div>99%  | 예매율 37.1%</div>
-      </article>
-      <article>
-        <img th:src="@{/img/82120_320.jpg}" />
-        <div>탑건-매버릭</div>
-        <div>99%  | 예매율 37.1%</div>
-      </article>
-    </div>-->
   </section>
 
   <section>
@@ -144,28 +115,28 @@
   <section>
     <ul>
       <li>
-        <h3>영화관람권</h3>
+        <h3>패키지</h3>
         <button type="button">더보기</button>
       </li>
       <li>
-        <img th:src="@{/img/16094706927780.jpg}" />
+        <img th:src="@{/img/16778206767040.jpg}" />
         <div>
-          <label>CGV 영화관람권</label>
-          <label>12,000원</label>
+          <label>우리 패키지</label>
+          <label>61,000원</label>
         </div>
       </li>
       <li>
-        <img th:src="@{/img/16094706927780.jpg}" />
+        <img th:src="@{/img/16778214176450.jpg}" />
         <div>
-          <label>CGV 영화관람권</label>
-          <label>12,000원</label>
+          <label>나랑 너 패키지</label>
+          <label>34,000원</label>
         </div>
       </li>
       <li>
-        <img th:src="@{/img/16094706927780.jpg}" />
+        <img th:src="@{/img/16778218049340.jpg}" />
         <div>
-          <label>CGV 영화관람권</label>
-          <label>12,000원</label>
+          <label>좋은 날 패키지</label>
+          <label>18,000원</label>
         </div>
       </li>
     </ul>
@@ -175,7 +146,14 @@
         <button type="button">더보기</button>
       </li>
       <li >
-        <img th:src="@{/img/16094706927780.jpg}" />
+        <img th:src="@{/img/15458911951520.jpg}" />
+        <div>
+          <label>CGV 골드클래스</label>
+          <label>40,000원</label>
+        </div>
+      </li>
+      <li>
+        <img th:src="@{/img/16105061088530.jpg}" />
         <div>
           <label>CGV 영화관람권</label>
           <label>12,000원</label>
@@ -184,42 +162,35 @@
       <li>
         <img th:src="@{/img/16094706927780.jpg}" />
         <div>
-          <label>CGV 영화관람권</label>
-          <label>12,000원</label>
-        </div>
-      </li>
-      <li>
-        <img th:src="@{/img/16094706927780.jpg}" />
-        <div>
-          <label>CGV 영화관람권</label>
-          <label>12,000원</label>
+          <label>4DX관람권</label>
+          <label>19,000원</label>
         </div>
       </li>
     </ul>
     <ul>
       <li>
-        <h3>영화관람권</h3>
+        <h3>기프트카드</h3>
         <button type="button">더보기</button>
       </li>
       <li >
-        <img th:src="@{/img/16094706927780.jpg}" />
+        <img th:src="@{/img/15814124358590.jpg}" />
         <div>
-          <label>CGV 영화관람권</label>
-          <label>12,000원</label>
+          <label>PACONNIE A형</label>
+          <label>금액충전형</label>
         </div>
       </li>
       <li>
-        <img th:src="@{/img/16094706927780.jpg}" />
+        <img th:src="@{/img/15814158039890.jpg}" />
         <div>
-          <label>CGV 영화관람권</label>
-          <label>12,000원</label>
+          <label>PACONNIE B형</label>
+          <label>금액충전형</label>
         </div>
       </li>
       <li>
-        <img th:src="@{/img/16094706927780.jpg}" />
+        <img th:src="@{/img/15814162227570.jpg}" />
         <div>
-          <label>CGV 영화관람권</label>
-          <label>12,000원</label>
+          <label>PACONNIE C형</label>
+          <label>금액충전형</label>
         </div>
       </li>
     </ul>
