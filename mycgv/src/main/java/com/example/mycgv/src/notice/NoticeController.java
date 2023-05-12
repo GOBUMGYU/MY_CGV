@@ -2,6 +2,8 @@ package com.example.mycgv.src.notice;
 
 import com.example.mycgv.src.PageServiceImpl;
 import com.example.mycgv.src.notice.model.Notice;
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -26,7 +28,7 @@ public class NoticeController {
     private final PageServiceImpl pageService;
 
     @ResponseBody
-    @GetMapping("/content")
+    @GetMapping(value = "/content", produces = "application/json; charset=UTF-8")
     public String noticeContent(Long nid) throws JsonProcessingException {
         Notice vo = noticeService.content(nid);
 
@@ -40,6 +42,7 @@ public class NoticeController {
         object.put("nid", vo.getNid());
         object.put("ntitle", vo.getNtitle());
         object.put("ncontent", vo.getNcontent());
+        object.put("nsfile", vo.getNsfile());
         object.put("createAt", vo.getCreateAt());
         object.put("nhits", vo.getNhits());
 
@@ -47,12 +50,12 @@ public class NoticeController {
     }
 
     @ResponseBody
-    @GetMapping("/list")
-    public String noticeListJson(String rpage) {
+    @GetMapping(value = "/list", produces = "application/json; charset=UTF-8")
+    public String noticeListJson(String rpage) throws JsonProcessingException {
         Map<String,Integer> param = pageService.getPageResult(rpage, "notice", noticeService);
         List<Notice> list = noticeService.noticeList(param.get("startCount"), param.get("endCount"));
 
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().configure(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN, true);;
         ObjectNode result = mapper.createObjectNode();
 
         ArrayNode array = mapper.createArrayNode();
@@ -72,7 +75,8 @@ public class NoticeController {
         result.put("rpage", param.get("rpage"));
         result.put("pageCount", param.get("pageCount"));
 
-        return result.toString();
+
+        return mapper.writeValueAsString(result);
     }
 
 
