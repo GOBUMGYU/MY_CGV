@@ -88,8 +88,8 @@ public class AdminController {
         ModelAndView mv = new ModelAndView();
 
         Notice vo = noticeService.content(nid);
-
         mv.addObject("vo", vo);
+        System.out.println(vo.toString());
         mv.setViewName("/admin/admin_notice/adminNoticeContent");
         return mv;
     }
@@ -226,7 +226,7 @@ public class AdminController {
     }
 
     @ResponseBody
-    @GetMapping("/movie/list")
+    @GetMapping(value = "/movie/list", produces = "application/json; charset=UTF-8")
     public String movieListJson() throws JsonProcessingException {
         List<Movie> list = movieService.selectList();
 
@@ -247,6 +247,7 @@ public class AdminController {
         System.out.println(jsonString);
         return jsonString;
     }
+
 
     @GetMapping("/movie/content")
     public ModelAndView adminMovieContent(Long mid) {
