@@ -23,6 +23,7 @@ public class PostUserReq {
     private String email;
     private String email1;
     private String email2;
+    private String address;
     private String zonecode;
     private String addr1;
     private String addr2;
@@ -61,5 +62,12 @@ public class PostUserReq {
         }
     }
 
+    public void setHobbyList(String hobbyList) {
+        this.hobbyList = hobbyList;
+    }
+
+    public String getHobbyList() {
+        return this.hobbyList;
+    }
 
 }
