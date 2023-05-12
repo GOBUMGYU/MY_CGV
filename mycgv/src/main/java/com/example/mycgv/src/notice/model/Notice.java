@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
