@@ -63,7 +63,7 @@ public class UserRepository {
 
     public List selectAll(int startCount, int endCount) {
         String selectUserQuery = "SELECT idx, id, name, pnumber, DATE_FORMAT(createAt, '%Y-%m-%d') AS createAt " +
-                "FROM CGV.USER ORDER BY createAt DESC LIMIT ? OFFSET ?";
+                "FROM CGV.USER ORDER BY createAt LIMIT ? OFFSET ?";
         Object[] selectUserParams = new Object[]{endCount - startCount + 1, startCount - 1};
         RowMapper<PostUserReq> rowMapper = new BeanPropertyRowMapper<>(PostUserReq.class);
         return jdbcTemplate.query(selectUserQuery, selectUserParams, rowMapper);
