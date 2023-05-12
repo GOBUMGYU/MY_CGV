@@ -1,24 +1,68 @@
-/**
-    테이블명 : USER
-    설      명 : 회원테이블 - 회원가입, 로그인, 관리자(회원리스트)
-    컬 럼  명 : ID, PASS, NAME..
-**/
-CREATE TABLE CGV.USER(
-    idx       INT(20) UNSIGNED, -- 고객아이디
-    id        VARCHAR(100) NOT NULL,   -- 아이디
-    pass      VARCHAR(255) NOT NULL,   -- 비밀번호
-    name      VARCHAR(100) NOT NULL,   -- 성명
-    nickName  VARCHAR(100) NOT NULL,   -- 닉네임
-    gender    VARCHAR(30)  NOT NULL,   -- 성별
-    email     VARCHAR(50)  NOT NULL,   -- 이메일
-    zoneCode  VARCHAR(20)  NOT NULL,   -- 도로명 주소
-    addr2     VARCHAR(30)  NOT NULL,   -- 주소
-    hp        VARCHAR(10)  NOT NULL,   -- 통신사
-    pNumber   VARCHAR(20)  NOT NULL,   -- 휴대전화 번호
-    hobbyList VARCHAR(40)  NOT NULL,   -- 취미
-    createAt  TIMESTAMP    NOT NULL  DEFAULT CURRENT_TIMESTAMP,    -- 생성일
-    updateAt  TIMESTAMP    NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,    -- 수정일
-    role      VARCHAR(10)  NOT NULL  DEFAULT '회원' COMMENT '회원, 사장',                        -- 회원,관리자
-    status    CHAR(1)      NOT NULL  DEFAULT 'Y' COMMENT 'Y : 활성유저, N : 탈퇴유저',             -- 상태
-    CONSTRAINT PK_USER_IDX PRIMARY KEY (idx)
+create table MOVIE
+(
+    MID       int unsigned auto_increment primary key,
+    MCATEGORY varchar(200)                        not null,
+    MNAME     varchar(200)                        not null,
+    MDESC     varchar(200)                        null,
+    createAt  timestamp default CURRENT_TIMESTAMP not null,
+    updateAt  timestamp default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP
+);
+
+create table BOARD
+(
+    BID      int unsigned auto_increment   primary key,
+    BTITLE   varchar(200)                        not null,
+    BCONTENT text                                not null,
+    BFILE    varchar(200)                        null,
+    BSFILE   varchar(200)                        null,
+    BHITS    int                                 null,
+    createAt timestamp default CURRENT_TIMESTAMP not null,
+    updateAt timestamp default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP
+);
+
+create table MOVIEFILE
+(
+    FID     int unsigned auto_increment primary key,
+    MFILE1  varchar(200) null,
+    MSFILE1 varchar(200) null,
+    MFILE2  varchar(200) null,
+    MSFILE2 varchar(200) null,
+    MID     int unsigned null,
+    constraint MOVIEFILE_ibfk_1
+        foreign key (MID) references MOVIE (MID)
+);
+
+create index MID
+    on MOVIEFILE (MID);
+
+create table NOTICE
+(
+    NID      int unsigned auto_increment
+        primary key,
+    NTITLE   varchar(200)                        not null,
+    NCONTENT text                                not null,
+    NFILE    varchar(200)                        null,
+    NSFILE   varchar(200)                        null,
+    NHITS    int                                 null,
+    createAt timestamp default CURRENT_TIMESTAMP not null,
+    updateAt timestamp default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP
+);
+
+create table USER
+(
+    idx       int unsigned auto_increment primary key,
+    id        varchar(100)                          not null,
+    pass      varchar(255)                          not null,
+    name      varchar(100)                          not null,
+    gender    varchar(30)                           not null,
+    email     varchar(50)                           not null,
+    zonecode  varchar(20)                           not null,
+    addr1     varchar(30)                           not null,
+    addr2     varchar(30)                           not null,
+    hp        varchar(10)                           not null,
+    pNumber   varchar(20)                           not null,
+    hobbyList varchar(40)                           not null,
+    intro     text                                  not null,
+    createAt  timestamp   default CURRENT_TIMESTAMP not null,
+    updateAt  timestamp   default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
 );
