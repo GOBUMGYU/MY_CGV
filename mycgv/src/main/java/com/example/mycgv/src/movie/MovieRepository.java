@@ -23,7 +23,7 @@ public class MovieRepository {
     }
     public List<Movie> movieList(int startCount, int endCount) {
         String selectMovieQuery = "SELECT mid, mcategory, mname, DATE_FORMAT(createAt, '%Y-%m-%d') AS createAt" +
-                " FROM CGV.MOVIE ORDER BY createAt DESC LIMIT ? OFFSET ?";
+                " FROM CGV.MOVIE ORDER BY createAt LIMIT ? OFFSET ?";
 
         Object[] selectMovieParams = new Object[]{endCount - startCount + 1, startCount - 1};
         RowMapper<Movie> rowMapper = new BeanPropertyRowMapper<>(Movie.class);
@@ -55,7 +55,7 @@ public class MovieRepository {
     public List<Movie> selectAll() {
         String selectMovieQuery = "SELECT cm.mid, mname, mfile1, msfile1 " +
                 "FROM CGV.MOVIE cm " +
-                "JOIN CGV.MOVIEFILE cmf ON cm.mid = cmf.mid " +
+                "LEFT JOIN CGV.MOVIEFILE cmf ON cm.mid = cmf.mid " +
                 "ORDER BY mid DESC LIMIT 5";
 
         List<Movie> list = jdbcTemplate.query(selectMovieQuery, new BeanPropertyRowMapper<>(
