@@ -1,5 +1,7 @@
 package com.example.mycgv.src;
 
+import com.example.mycgv.src.board.BoardService;
+import com.example.mycgv.src.board.BoardServiceImpl;
 import com.example.mycgv.src.user.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,13 +14,14 @@ import java.util.Map;
 public class PageServiceImpl {
 
     private UserServiceImpl userService;
+    private BoardServiceImpl boardService;
 
     public Map<String, Integer> getPageResult(String rpage, String serviceName, Object service) {
         Map<String, Integer> param = new HashMap<String, Integer>();
 
         int startCount = 0;
         int endCount = 0;
-        int pageSize = 3;
+        int pageSize = 5;
         int reqPage = 1;
         int pageCount = 1;
         int dbCount = 0;
@@ -26,6 +29,9 @@ public class PageServiceImpl {
         if(serviceName.equals("user")) {
             userService = (UserServiceImpl) service;
             dbCount = userService.getTotalCount();
+        }else if(serviceName.equals("board")) {
+            boardService = (BoardServiceImpl)service;
+            dbCount = boardService.getTotalCount();
         }
 
         if(dbCount % pageSize == 0) {
