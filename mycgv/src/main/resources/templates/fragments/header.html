@@ -16,17 +16,29 @@
         <img th:src="@{/img/logoRed.png}" width="150" height="70"></a>
       <span>CULTURFLEX</span>
     </div>
+
     <div>
       <img th:src="@{/img/hcard.png}">
+
+      <th:block th:if="${session.svo == null}">
       <a th:href="@{/users/login}" target="_parent" >
         <img th:src="@{/img/loginPassword.png}">
         <span>로그인</span>
       </a>
+      </th:block>
+      <th:block th:if="${session.svo != null}">
+      <!--<div th:text="${session.svo.name} + '님, 감사합니다.'">[[${session.svo.name}]]</div>-->
+        <a th:href="@{/users/logout}" target="_parent" >
+          <img th:src="@{/img/loginPassword.png}">
+          <span>로그아웃</span>
+        </a>
+      </th:block>
+
       <a th:href="@{/users/new}" target="_parent" >
         <img th:src="@{/img/loginJoin.png}">
         <span>회원가입</span>
       </a>
-      <a href="http://localhost:9000/mycgv/mycgv.do" target="_parent">
+      <a th:href="@{/mycgv}" target="_parent">
         <img th:src="@{/img/loginMember.png}">
         <span>MY CGV</span>
       </a>
@@ -38,42 +50,14 @@
         <img th:src="@{/img/loginCustomer.png}">
         <span>공지사항</span>
       </a>
+      <th:block th:if="${session.svo != null and session.svo.id == 'admin'}">
       <a th:href="@{/admin}" target="_parent" >
         <img th:src="@{/img/loginCustomer.png}">
         <span>Admin</span>
       </a>
-    </div>
+      </th:block>
 
-    <!--
-    <div>
-        <img src="http://localhost:9000/mycgv/resources/images/hcard.png">
-        <a href="http://localhost:9000/mycgv/login/logout.jsp" target="_parent" >
-            <img src="http://localhost:9000/mycgv/resources/images/loginPassword.png">
-            <span>로그아웃</span>
-        </a>
-        <a href="http://localhost:9000/mycgv/join/join.jsp" target="_parent" >
-            <img src="http://localhost:9000/mycgv/resources/images/loginJoin.png">
-            <span>회원가입</span>
-        </a>
-        <a href="http://localhost:9000/mycgv/mycgv/mycgv.jsp" target="_parent">
-            <img src="http://localhost:9000/mycgv/resources/images/loginMember.png">
-            <span>MY CGV</span>
-        </a>
-        <a href="http://localhost:9000/mycgv/board/board_list.jsp" target="_parent" >
-            <img src="http://localhost:9000/mycgv/resources/images/loginCustomer.png">
-            <span>게시판</span>
-        </a>
-        <a href="http://localhost:9000/mycgv/notice/notice_list.jsp" target="_parent" >
-            <img src="http://localhost:9000/mycgv/resources/images/loginCustomer.png">
-            <span>공지사항</span>
-        </a>
-            <a href="http://localhost:9000/mycgv/admin/admin.jsp" target="_parent" >
-                <img src="http://localhost:9000/mycgv/resources/images/loginCustomer.png">
-                <span>Admin</span>
-            </a>
     </div>
-    -->
-
   </div>
   <div class="header_contents2">
     <nav>
