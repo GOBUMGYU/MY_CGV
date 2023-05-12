@@ -88,4 +88,21 @@ public class UserController {
         return mv;
     }
 
+    /**
+     * logout 처리
+     */
+    @GetMapping("/logout")
+    public ModelAndView logout(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+
+        SessionVO svo = (SessionVO) session.getAttribute("svo");
+
+        if(svo != null) {
+            session.invalidate();
+            mv.addObject("logout_result", "ok");
+        }
+        mv.setViewName("/index");
+
+        return mv;
+    }
 }
