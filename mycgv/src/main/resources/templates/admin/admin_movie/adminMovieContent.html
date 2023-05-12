@@ -28,13 +28,10 @@
     </tr>
     <tr>
       <th>영화설명</th>
-      <td colspan="3" th:text="${vo.mdesc}">${vo.mdesc }<br><br>
-        <th:block th:if="${vo.msfile1 != null}">
-          <img th:src="@{/resources/upload/{filename}(filename=${vo.msfile1})}" width="50%">
-        </th:block><br><br>
-        <th:block th:if="${vo.msfile2 != null}">
-          <img th:src="@{/resources/upload/{filename}(filename=${vo.msfile2})}" width="50%">
-        </th:block>
+      <td colspan="3"><br><br>
+        <pre th:text="${vo.mdesc}" th:if="${vo.mdesc != null}"></pre>
+        <img th:if="${vo.msfile1 != null}" th:src="@{/upload/__${vo.msfile1}__}"  width="50%">
+        <img th:if="${vo.msfile2 != null}" th:src="@{/upload/__${vo.msfile2}__}"  width="50%">
         <br><br></td>
     </tr>
     <tr>

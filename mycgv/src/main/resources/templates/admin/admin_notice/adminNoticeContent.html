@@ -28,9 +28,12 @@
     </tr>
     <tr>
       <th>내용</th>
-      <td colspan="3" th:text="${vo.ncontent}"><br><br>
-        <img th:if="${vo.nsfile != null}" th:src="@{/upload/${vo.nsfile}}" width="100" height="70">
-        <br><br></td>
+      <td colspan="3">
+        <br><br>
+        <pre th:text="${vo.ncontent}" th:if="${vo.ncontent != null}"></pre>
+        <img th:if="${vo.nsfile != null}" th:src="@{/upload/__${vo.nsfile}__}" width="100" height="70">
+        <br><br>
+      </td>
     </tr>
     <tr>
       <td colspan="4">
