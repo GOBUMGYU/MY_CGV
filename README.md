@@ -8,13 +8,13 @@
     - **JAVA, Springboot, JDBCTEMPLATE**
     - **Ajax, Git, MVC Pattern**
     - **MYSQL**
-## 개발 내용 요약
-- **메인 페이지 페이지**
+## Implementation
+- **메인 페이지**
     - **AJAX를 활용하여 영화 리스트, 공지사항 리스트 비동기 처리**   
       HEADER  
       ![image](https://github.com/GOBUMGYU/MY_CGV/assets/106207558/2bf29b7b-369b-4a6c-a575-2fc783abcb6f)
       INDEX  
-      ![image](https://github.com/GOBUMGYU/MY_CGV/assets/106207558/d05ed4ef-322c-49d7-8dd2-c01beb35b402)
+      ![image](https://github.com/GOBUMGYU/MY_CGV/assets/106207558/ab0f4156-63bd-4b1f-b543-bb075d9c190d)
       ![image](https://github.com/GOBUMGYU/MY_CGV/assets/106207558/e1d34cb7-b515-4345-87c2-66a81683ef7b)
       FOOTER  
       ![image](https://github.com/GOBUMGYU/MY_CGV/assets/106207558/af020abd-9092-44d0-915c-a42e8d4e7cb9)
