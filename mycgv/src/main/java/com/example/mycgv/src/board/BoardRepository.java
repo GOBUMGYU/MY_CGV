@@ -37,7 +37,7 @@ public class BoardRepository {
 
     public List<PostBoardReq> boardList(int startCount, int endCount) {
         String selectBoardQuery = "SELECT bid, btitle, bhits, DATE_FORMAT(createAt, '%Y-%m-%d') AS createAt " +
-                "FROM CGV.BOARD ORDER BY createAt DESC LIMIT ? OFFSET ?";
+                "FROM CGV.BOARD ORDER BY createAt LIMIT ? OFFSET ?";
         //Object[] selectBoardParams = new Object[] {startCount, endCount};
         Object[] selectBoardParams = new Object[]{endCount - startCount + 1, startCount - 1};
         RowMapper<PostBoardReq> rowMapper = new BeanPropertyRowMapper<>(PostBoardReq.class);
